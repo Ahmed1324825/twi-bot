@@ -6,6 +6,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 import re
 import json
 import asyncio
+import time
 
 # اسم ملف الكاش
 CACHE_FILE = 'cache.json'
@@ -95,4 +96,14 @@ app = ApplicationBuilder().token("7524924745:AAH0ub_WRc1lOQuhzpanZ1qGD42NwTfS5o8
 app.add_handler(MessageHandler(filters.TEXT, download_video))
 
 # تشغيل البوت
-app.run_polling()
+#app.run_polling()
+# تشغيل البوت مع إعادة التشغيل التلقائي في حالة الخطأ
+if __name__ == "__main__":
+    while True:
+        try:
+            print("🚀 Bot is running...")
+            app.run_polling()
+        except Exception as e:
+            print(f"❌ Bot crashed with error: {e}")
+            time.sleep(5)  # يستنى 5 ثواني قبل ما يعيد التشغيل
+
